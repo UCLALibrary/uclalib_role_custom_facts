@@ -1,0 +1,16 @@
+#!/bin/bash
+OUTPUT=`sudo subscription-manager list --consumed | grep -i 'subscription name' | cut -d ':' -f2 | sed -e 's/ /_/g' | sed -e 's/___//g'`
+
+SUB_COUNTER=0
+
+if [ -z "$OUTPUT" ]; then
+  echo "No subscriptions found"
+  exit
+else
+  echo "[rhn-subscriptions-consumed]"
+  for SUB in $OUTPUT;
+    do
+      ((SUB_COUNTER++))
+      echo "subscription_$SUB_COUNTER=$SUB";
+    done
+fi
