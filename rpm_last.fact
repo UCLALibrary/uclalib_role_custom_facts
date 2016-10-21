@@ -6,6 +6,6 @@ if [ -z "$OUTPUT" ]; then
   exit
 else
   echo "[last_rpm_update]"
-  echo "$OUTPUT"
+  echo "last_rpm_update=$OUTPUT"
 fi
 
