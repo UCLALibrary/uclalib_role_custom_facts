@@ -7,31 +7,30 @@
   vars:
     custom_facts:
       - apache_installed.fact
-      - rhn_sub.fact 
-      - rpm_last_installed.fact 
+      - rhn_sub.fact
+      - rpm_last.fact
 
-tasks:
-  - name: Create ansible directory
-    file:
-      path: /etc/ansible
-      uid: root
-      gid: root
-      mode: 0755
+  tasks:
+    - name: Create ansible directory
+      file:
+        path: /etc/ansible
+        owner: root
+        group: root
+        mode: 0755
 
-  - name: Create facts.d directory
-    file:
-      path: /etc/ansible/facts.d
-      uid: root
-      gid: root
-      mode: 0755
+    - name: Create facts.d directory
+      file:
+        path: /etc/ansible/facts.d
+        owner: root
+        group: root
+        mode: 0755
 
-  - name: Deploy all facts
-    copy:
-      src: "{{ item }}"
-      uid: root
-      gid: root
-      mode: 0755
-    with_items:
-      - custom_facts
-
-    
+    - name: Deploy all facts
+      copy:
+        src: "files/{{ item }}"
+        dest: "/etc/ansible/facts.d/{{ item }}"
+        owner: root
+        group: root
+        mode: 0755
+      with_items:
+        - "{{ custom_facts }}"
