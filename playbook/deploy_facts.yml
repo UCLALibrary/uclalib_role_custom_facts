@@ -17,6 +17,7 @@
         owner: root
         group: root
         mode: 0755
+        state: directory
 
     - name: Create facts.d directory
       file:
@@ -24,6 +25,7 @@
         owner: root
         group: root
         mode: 0755
+        state: directory
 
     - name: Deploy all facts
       copy:
