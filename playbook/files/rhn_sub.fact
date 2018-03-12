@@ -8,7 +8,7 @@ if [ -z "$OUTPUT" ]; then
   echo "No subscriptions found"
   exit
 else
-  echo "[rhn-subscriptions-consumed]"
+  echo "[rhn_subscriptions_consumed]"
   while IFS= read -r line
   do
     PARSESUB="subscription_$SUB_COUNTER=$line"
