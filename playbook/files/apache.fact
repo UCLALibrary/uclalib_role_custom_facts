@@ -5,6 +5,6 @@ if [ -z "$OUTPUT" ]; then
   echo "No results"
   exit
 else
-  echo "[apache_installed]"
-  echo "apache_installed=$OUTPUT"
+  echo "[apache_fact]"
+  echo "installed=$OUTPUT"
 fi
