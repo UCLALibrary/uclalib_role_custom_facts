@@ -6,7 +6,7 @@
 
   vars:
     custom_facts:
-      - apache_installed.fact
+      - apache.fact
       - rhn_sub.fact
       - rpm_last.fact
 
