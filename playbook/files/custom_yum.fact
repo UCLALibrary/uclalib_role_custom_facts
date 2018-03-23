@@ -1,0 +1,10 @@
+#!/bin/bash
+OUTPUT=`yum check-update --quiet | grep '^[a-Z0-9]' | wc -l`
+
+if [ -z "$OUTPUT" ]; then
+  echo "No results"
+  exit
+else
+  echo "[available_pkg_update]"
+  echo "count=$OUTPUT"
+fi

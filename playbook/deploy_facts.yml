@@ -9,13 +9,12 @@
       - apache.fact
       - rhn_sub.fact
       - rpm_last.fact
+      - custom_yum.fact
 
   tasks:
     - name: Create ansible directory
       file:
         path: /etc/ansible
-        owner: root
-        group: root
         mode: 0755
         state: directory
 
