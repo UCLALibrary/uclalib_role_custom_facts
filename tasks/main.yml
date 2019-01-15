@@ -1,0 +1,25 @@
+---
+
+- name: Create ansible root directory
+  file:
+    path: "{{ ansible_root_dir }}"
+    mode: 0755
+    state: directory
+
+- name: Create ansible custom facts scripts directory
+  file:
+    path: "{{ ansible_facts_dir }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Put in place custom ansible facts scripts
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_facts_dir }}/{{ item }}"
+    owner: root
+    group: root
+    mode: 0750
+  with_fileglob:
+    - "{{ ansible_facts_file_pattern }}"

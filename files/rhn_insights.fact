@@ -1,0 +1,12 @@
+#!/bin/bash
+OUTPUT=`ls -al /etc/insights-client | grep -ow ".registered"`
+
+if [ -z $OUTPUT ] ; then
+  echo "status=unregistered"
+elif [ $OUTPUT == ".registered" ]; then
+  echo "[rhn_insights_status]"
+  echo "status=registered"
+else
+  echo "[rhn_insights_status]"
+  echo "status=$OUTPUT"
+fi
