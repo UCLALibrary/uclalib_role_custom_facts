@@ -1,7 +1,7 @@
 uclalib_role_custom_facts
 =========
 
-Ansible role for deploying custom fact files
+Ansible role for deploying custom fact script files
 
 Requirements
 ------------
@@ -11,7 +11,11 @@ None.
 Role Variables
 --------------
 
-* `variable` - defines the version of FITS to download/install on the system
+* `ansible_root_dir` - defines the root ansible directory - default is `/etc/ansible`
+
+* `ansible_facts_dir` - defines the directory to store the custom fact script files - default is `/etc/ansible/facts.d`
+
+* `ansible_facts_file_pattern` - defines the file pattern to use when searching for custom fact script files to deploy - default is `*.fact`
 
 Dependencies
 ------------
