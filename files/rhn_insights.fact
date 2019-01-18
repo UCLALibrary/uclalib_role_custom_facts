@@ -2,11 +2,27 @@
 OUTPUT=`ls -al /etc/insights-client | grep -ow ".registered"`
 
 if [ -z $OUTPUT ] ; then
-  echo "status=unregistered"
+  cat <<EOF
+{
+  "rhn_insights_reg": {
+    "reg_status" : "unregistered"
+  }
+}
+EOF
 elif [ $OUTPUT == ".registered" ]; then
-  echo "[rhn_insights_status]"
-  echo "status=registered"
+  cat <<EOF
+{
+  "rhn_insights_reg": {
+    "reg_status" : "registered"
+  }
+}
+EOF
 else
-  echo "[rhn_insights_status]"
-  echo "status=$OUTPUT"
+  cat <<EOF
+{
+  "rhn_insights_reg": {
+    "reg_status" : "${OUTPUT}"
+  }
+}
+EOF
 fi
