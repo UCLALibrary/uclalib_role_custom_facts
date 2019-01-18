@@ -2,9 +2,19 @@
 OUTPUT=`yum check-update --quiet | grep '^[a-Z0-9]' | wc -l`
 
 if [ -z "$OUTPUT" ]; then
-  echo "No results"
-  exit
+  cat <<EOF
+{
+  "available_pkg_update": {
+    "pkg_count" : "Error"
+  }
+}
+EOF
 else
-  echo "[available_pkg_update]"
-  echo "count=$OUTPUT"
+  cat <<EOF
+{
+  "available_pkg_update": {
+    "pkg_count" : "${OUTPUT}"
+  }
+}
+EOF
 fi

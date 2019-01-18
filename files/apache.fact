@@ -2,9 +2,19 @@
 OUTPUT=`rpm -qa | grep httpd | head -n 1`
 
 if [ -z "$OUTPUT" ]; then
-  echo "No results"
-  exit
+  cat <<EOF
+{
+  "apache_install_status": {
+    "pkg_name" : "None"
+  }
+}
+EOF
 else
-  echo "[apache_fact]"
-  echo "installed=$OUTPUT"
+  cat <<EOF
+{
+  "apache_install_status": {
+    "pkg_name" : "${OUTPUT}"
+  }
+}
+EOF
 fi

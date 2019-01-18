@@ -2,10 +2,19 @@
 OUTPUT=`rpm -qa --last | head -n 1 | cut -f 1 -d ' ' --complement | sed -e 's/^[ \t]*//'`
 
 if [ -z "$OUTPUT" ]; then
-  echo "No results"
-  exit
+  cat <<EOF
+{
+  "last_rpm_update": {
+    "last_rpm_update" : "None"
+  }
+}
+EOF
 else
-  echo "[last_rpm_update]"
-  echo "last_rpm_update=$OUTPUT"
+  cat <<EOF
+{
+  "last_rpm_update": {
+    "last_rpm_update" : "${OUTPUT}"
+  }
+}
+EOF
 fi
-

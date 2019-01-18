@@ -1,20 +1,16 @@
 #!/bin/bash
-#OUTPUT=`sudo subscription-manager list --consumed | grep -i 'active\|subscription name' | cut -d ':' -f2 | awk '{$1=$1};1' | awk '{printf "%s|",$0} END {print ""}' | sed -e 's/ /_/g'`
-OUTPUT=`subscription-manager list --consumed | grep -i 'active\|subscription name' | cut -d ':' -f2 | awk '{$1=$1};1' | sed -e 's/ /_/g'`
+OUTPUT=`subscription-manager list --consumed | grep -i 'subscription name\|active' | awk -F ':' '{ print$2 }' | awk '{$1=$1};1' | sed 's/ /_/g' | sed 's/,//g' | awk 'NR%2{ printf "%s ",$0;next; }1'`
 
 SUB_COUNTER=1
 
-if [ -z "$OUTPUT" ]; then
-  echo "No subscriptions found"
-  exit
+if [ -z ${OUTPUT} ]; then
+  echo "[rhn_subscriptions_consumed]"
+  echo "{ \"subscription_${SUB_COUNTER}\": \"None\" }"
 else
   echo "[rhn_subscriptions_consumed]"
-  while IFS= read -r line
-  do
-    PARSESUB="subscription_$SUB_COUNTER=$line"
-    read -r line
-    PARSESUB="$PARSESUB | Active:$line"
-    echo $PARSESUB
-    ((SUB_COUNTER++))
-  done <<< "$OUTPUT"
+  for SUB_ENTRY in ${OUTPUT}; do
+    SUB_NAME=`echo ${SUB_ENTRY} | awk '{ print $1 }'`
+    SUB_ACTIVE=`echo ${SUB_ENTRY} | awk '{ print $2 }'`
+    echo "{ \"subscription_${SUB_COUNTER}\": \"${SUB_NAME} - Active: ${SUB_ACTIVE}\" }"
+  done
 fi
