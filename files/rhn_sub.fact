@@ -1,16 +1,21 @@
 #!/bin/bash
+
 OUTPUT=`subscription-manager list --consumed | grep -i 'subscription name\|active' | awk -F ':' '{ print$2 }' | awk '{$1=$1};1' | sed 's/ /_/g' | sed 's/,//g' | awk 'NR%2{ printf "%s ",$0;next; }1'`
 
 SUB_COUNTER=1
 
-if [ -z ${OUTPUT} ]; then
+if [ -z "${OUTPUT}" ]; then
   echo "[rhn_subscriptions_consumed]"
-  echo "{ \"subscription_${SUB_COUNTER}\": \"None\" }"
+  echo "subscription_${SUB_COUNTER}_name : None"
+  echo "subscription_${SUB_COUNTER}_active : None"
 else
   echo "[rhn_subscriptions_consumed]"
   for SUB_ENTRY in ${OUTPUT}; do
-    SUB_NAME=`echo ${SUB_ENTRY} | awk '{ print $1 }'`
-    SUB_ACTIVE=`echo ${SUB_ENTRY} | awk '{ print $2 }'`
-    echo "{ \"subscription_${SUB_COUNTER}\": \"${SUB_NAME} - Active: ${SUB_ACTIVE}\" }"
+    if [ "${SUB_ENTRY}" == "True" -o "${SUB_ENTRY}" == "False" ]; then
+      echo "subscription_${SUB_COUNTER}_active : ${SUB_ENTRY}"
+      SUB_COUNTER=$(expr ${SUB_COUNTER} + 1)
+    else
+      echo "subscription_${SUB_COUNTER}_name : ${SUB_ENTRY}"
+    fi
   done
 fi
