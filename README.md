@@ -15,7 +15,9 @@ Role Variables
 
 * `ansible_facts_dir` - defines the directory to store the custom fact script files - default is `/etc/ansible/facts.d`
 
-* `ansible_facts_file_pattern` - defines the file pattern to use when searching for custom fact script files to deploy - default is `*.fact`
+* `ansible_facts_file_pattern` - defines the file pattern to use when searching for custom fact script files to deploy to all OS distributions - default is `*_custom.fact`
+
+* `ansible_facts_rhel_file_pattern` - defines the file pattern to use when searching for custom fact script files to deploy to RHEL distributions - default is `*_rhel.fact`
 
 Dependencies
 ------------
