@@ -6,6 +6,11 @@
     mode: 0755
     state: directory
 
+- name: Clear out existing custom fact files
+  file:
+    path: "{{ ansible_facts_dir }}"
+    state: absent
+
 - name: Create ansible custom facts scripts directory
   file:
     path: "{{ ansible_facts_dir }}"

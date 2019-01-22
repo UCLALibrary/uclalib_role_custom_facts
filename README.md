@@ -1,7 +1,9 @@
 uclalib_role_custom_facts
 =========
 
-Ansible role for deploying custom fact script files
+Ansible role for managing and deploying custom fact script files.
+
+Please note: this role clears out any existing fact scripts before deploying.
 
 Requirements
 ------------
