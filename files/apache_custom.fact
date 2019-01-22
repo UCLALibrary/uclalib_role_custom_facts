@@ -1,11 +1,11 @@
 #!/bin/bash
-OUTPUT=`rpm -qa | grep httpd | head -n 1`
+OUTPUT=`yum -q list installed httpd | tail -1 | awk '{ print $2 }'`
 
 if [ -z "$OUTPUT" ]; then
   cat <<EOF
 {
   "apache_install_status": {
-    "pkg_name" : "None"
+    "httpd_pkg_name" : "None"
   }
 }
 EOF
@@ -13,7 +13,7 @@ else
   cat <<EOF
 {
   "apache_install_status": {
-    "pkg_name" : "${OUTPUT}"
+    "httpd_pkg_name" : "httpd-${OUTPUT}"
   }
 }
 EOF
