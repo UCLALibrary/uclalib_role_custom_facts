@@ -4,4 +4,6 @@ ansible_root_dir: "/etc/ansible"
 
 ansible_facts_dir: "{{ ansible_root_dir }}/facts.d/"
 
-ansible_facts_file_pattern: "*.fact"
+ansible_facts_file_pattern: "*_custom.fact"
+
+ansible_facts_rhel_file_pattern: "*_rhel.fact"

@@ -14,7 +14,7 @@
     mode: 0755
     state: directory
 
-- name: Put in place custom ansible facts scripts
+- name: Put in place custom ansible facts scripts for all OS distributions
   copy:
     src: "{{ item }}"
     dest: "{{ ansible_facts_dir }}"
@@ -23,3 +23,14 @@
     mode: 0750
   with_fileglob:
     - "{{ ansible_facts_file_pattern }}"
+
+- name: Put in place custom ansible facts scripts for RHEL distributions
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_facts_dir }}"
+    owner: root
+    group: root
+    mode: 0750
+  with_fileglob:
+    - "{{ ansible_facts_rhel_file_pattern }}"
+  when: ansible_distribution == "RedHat"
